@@ -9,8 +9,9 @@
 
     <div class="gram-actions float-right">
       <% if current_user && current_user == gram.user %>
-        <%= link_to 'Edit', edit_gram_path(gram) %>
         <%= link_to 'Delete', gram_path(gram), method: :delete, data: {confirm: 'Are you sure you wish to delete this Gram?'} %>
+        <%= link_to 'Edit', edit_gram_path(gram) %>
+        
       <% end %>
     </div>
     <br class="clear-fix" />
@@ -19,16 +20,17 @@
       <% gram.comments.each do |comment| %>
         <div class="comment">
           <span class="comment_handle">
-            <%= comment.user.email %>
+            <%= comment.user.email %>:
           </span>
 
           <%= comment.message %>
         </div>
       <% end %>
-
+      <br class="clear-fix" />
+      <br />
       <h4>Add a comment</h4>
       <%= simple_form_for Comment.new, url: gram_comments_path(gram) do |f| %>
-        <%= f.input :message %>
+        <%= f.input :message, label: false %>
         <%= f.submit 'Add Comment', class: 'my-btn' %>
       <% end %>
     </div>
